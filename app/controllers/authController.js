@@ -5,18 +5,26 @@ exports.login = async (req, res) => {
   const result = await authService.login(username, password);
 
   if (result.status === 'success') {
-    req.session.userId = result.userId;
-    res.status(200).json({ status: 'success', message: 'Login successful' });
+    res.cookie('token', result.token, {
+      httpOnly: true,
+      secure: false, // Set secure to false for non-secure environments like localhost
+      maxAge: 3600000 // 1 jam
+    });
+
+    res.status(200).json({
+      error: false,
+      message: 'Login successful',
+      loginResult: {
+        username: username,
+        token: result.token
+      }
+    });
   } else {
     res.status(401).json({ status: 'error', message: 'Invalid credentials' });
   }
 };
 
 exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ status: 'error', message: 'Failed to logout' });
-    }
-    res.status(200).json({ status: 'success', message: 'Logout successful' });
-  });
+  res.clearCookie('token');
+  res.status(200).json({ message: 'Logout successful' });
 };

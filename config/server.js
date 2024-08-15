@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const artikelRouter = require("../app/routes/artikelRouter");
 const authRouter = require("../app/routes/authRouter");
@@ -13,6 +14,7 @@ const port = 3000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use(
   session({
@@ -20,17 +22,16 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      sameSite: "none",
-    //   secure: true,
+      sameSite: "lax",
+      secure: false,
     },
-    proxy: true,
+    proxy: false,
   })
 );
 
 app.use("/auth", authRouter);
 app.get("/", (req, res) => res.send("Halo, Remas!"));
 
-// Protect /artikel route
 app.use("/artikel", authMiddleware, artikelRouter);
 
 app.listen(port, () => {
