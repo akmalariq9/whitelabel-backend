@@ -10,6 +10,16 @@ exports.getAllArtikel = async () => {
     }
 };
 
+exports.getArtikelById = async (id) => {
+    const artikelData = await artikelRepository.getArtikelById(id);
+
+    if (!artikelData) {
+        throw new Error('Artikel tidak ditemukan');
+    }
+
+    return artikelData;
+};
+
 exports.addArtikel = async (data) => {
     try {
         const artikel = await artikelRepository.addArtikel(data);
@@ -20,7 +30,6 @@ exports.addArtikel = async (data) => {
     }
 };
 
-//add patch and if id not found return error
 exports.editArtikel = async (data, id) => {
     try {
         const artikelData = await artikelRepository.editArtikel(data, id);

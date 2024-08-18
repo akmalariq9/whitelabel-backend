@@ -7,8 +7,8 @@ exports.login = async (req, res) => {
   if (result.status === 'success') {
     res.cookie('token', result.token, {
       httpOnly: true,
-      secure: false, // Set secure to false for non-secure environments like localhost
-      maxAge: 3600000 // 1 jam
+      secure: false, 
+      maxAge: 3600000 
     });
 
     res.status(200).json({

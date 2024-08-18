@@ -4,6 +4,16 @@ exports.getAllArtikel = async () => {
     return await artikel.findAll();
 };
 
+exports.getArtikelById = async (id) => {
+    const artikelData = await artikel.findOne({ where: { id: id } });
+
+    if (!artikelData) {
+        return null;
+    }
+
+    return artikelData;
+};
+
 exports.addArtikel = async (data) => {
     return await artikel.create(data);
 };
@@ -16,10 +26,10 @@ exports.editArtikel = async (data, id) => {
     }
 
     await artikel.update(data, { where: { id: id } });
-    return artikelData;
+
+    return await artikel.findOne({ where: { id: id } });
 };
 
-//delete using id and thrown error if id not found
 exports.deleteArtikel = async (id) => {
     const artikelData = await artikel.findOne({ where: { id: id } });
 
