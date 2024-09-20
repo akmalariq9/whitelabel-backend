@@ -33,6 +33,10 @@ exports.addArtikel = async (data) => {
 exports.editArtikel = async (data, id) => {
     try {
         const artikelData = await artikelRepository.editArtikel(data, id);
+
+        if (!artikelData) {
+            throw new Error('Artikel tidak ditemukan');
+        }
         return artikelData;
     } catch (error) {
         throw error;

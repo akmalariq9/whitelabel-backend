@@ -22,11 +22,10 @@ exports.editArtikel = async (data, id) => {
     const artikelData = await artikel.findOne({ where: { id: id } });
 
     if (!artikelData) {
-        throw new Error('Artikel tidak ditemukan');
+        return null;
     }
 
     await artikel.update(data, { where: { id: id } });
-
     return await artikel.findOne({ where: { id: id } });
 };
 

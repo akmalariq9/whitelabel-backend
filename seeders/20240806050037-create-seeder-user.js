@@ -1,4 +1,5 @@
 'use strict';
+const { v4: uuidv4 } = require('uuid');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -15,8 +16,10 @@ module.exports = {
   //  create seeder with username admin and password admin123
     await queryInterface.bulkInsert('users', [
       {
+        id: uuidv4(),
         username: 'admin',
         password: 'admin123',
+        role: 'admin',
         createdAt: new Date(),
         updatedAt: new Date()
       }

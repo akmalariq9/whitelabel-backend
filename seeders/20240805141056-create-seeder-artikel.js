@@ -1,4 +1,5 @@
 'use strict';
+const { v4: uuidv4 } = require('uuid');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -15,18 +16,21 @@ module.exports = {
    // Seed data
     await queryInterface.bulkInsert('artikels', [
       {
+        id: uuidv4(),
         title: 'Artikel 1',
         content: 'Content 1',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: uuidv4(),
         title: 'Artikel 2',
         content: 'Content 2',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
+        id: uuidv4(),
         title: 'Artikel 3',
         content: 'Content 3',
         createdAt: new Date(),
