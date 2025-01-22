@@ -1,5 +1,4 @@
 'use strict';
-const { v4: uuidv4 } = require('uuid');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -13,29 +12,33 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   // Seed data
-    await queryInterface.bulkInsert('artikels', [
+    await queryInterface.bulkInsert('categories', [
       {
-        id: uuidv4(),
-        title: 'Artikel 1',
-        content: 'Content 1',
+        name: 'Teknologi',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        id: uuidv4(),
-        title: 'Artikel 2',
-        content: 'Content 2',
+        name: 'Olahraga',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        id: uuidv4(),
-        title: 'Artikel 3',
-        content: 'Content 3',
+        name: 'Hiburan',
         createdAt: new Date(),
         updatedAt: new Date()
-      }]);
+      },
+      {
+        name: 'Politik',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        name: 'Ekonomi',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ]);
   },
 
   async down (queryInterface, Sequelize) {

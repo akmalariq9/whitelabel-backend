@@ -1,4 +1,5 @@
 const { artikel } = require('../../models');
+const { category } = require('../../models');
 
 exports.getAllArtikel = async () => {
     return await artikel.findAll();
@@ -6,6 +7,16 @@ exports.getAllArtikel = async () => {
 
 exports.getArtikelById = async (id) => {
     const artikelData = await artikel.findOne({ where: { id: id } });
+
+    if (!artikelData) {
+        return null;
+    }
+
+    return artikelData;
+};
+
+exports.getArtikelByUserId = async (userId) => {
+    const artikelData = await artikel.findAll({ where: { userId: userId } });
 
     if (!artikelData) {
         return null;

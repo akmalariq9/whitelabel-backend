@@ -20,6 +20,16 @@ exports.getArtikelById = async (id) => {
     return artikelData;
 };
 
+exports.getArtikelByUserId = async (userId) => {
+    const artikelData = await artikelRepository.getArtikelByUserId(userId);
+
+    if (!artikelData) {
+        throw new Error('Artikel tidak ditemukan');
+    }
+
+    return artikelData;
+};
+
 exports.addArtikel = async (data) => {
     try {
         const artikel = await artikelRepository.addArtikel(data);

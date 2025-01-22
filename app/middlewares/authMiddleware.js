@@ -16,10 +16,13 @@ module.exports = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, jwtSecret);
     req.userId = decoded.userId;
+    req.username = decoded.username;
+    req.role = decoded.role;
+  
     console.log("Token valid, user authenticated");
     next();
   } catch (err) {
-    console.log("Invalid token");
+    console.log("Invalid token:", err.message); // Log detailed error message
     return res.status(401).json({ status: "error", message: "Invalid token" });
   }
-};
+};  
